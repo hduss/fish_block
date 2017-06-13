@@ -24,6 +24,7 @@ class SeriesCtrl {
 		sqlmoves.findAll('series').then(
 			results => {
 				res.render('series.twig', {results: results});
+				console.log(results);
 			}
 		);
 

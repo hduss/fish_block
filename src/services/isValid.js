@@ -13,7 +13,7 @@ class isValid {
 
 		if (compareMail) {
 
-			console.log('COMPARED OK !!! ');
+			console.log('MAIL OK !!! ');
 			return true;
 
 		}else{

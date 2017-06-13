@@ -19,7 +19,7 @@ class Crypt {
 		this.crypted = crypted;
 
 
-		console.log(this.crypted);
+		//console.log(this.crypted);
 		return this.crypted;
 
 
@@ -34,7 +34,6 @@ class Crypt {
 
 		this.dec = dec;
 
-		console.log(dec);
 		return this.dec;
 	}
 }

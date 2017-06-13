@@ -15,6 +15,7 @@
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "mysql": "^2.13.0",
+    "node-tvdb": "^3.2.0",
     "yamljs": "^0.2.10"
   }
 }

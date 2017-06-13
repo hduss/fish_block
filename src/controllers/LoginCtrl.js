@@ -1,4 +1,4 @@
-const isValid = require('../services/isValid.js')
+const compareLogin = require('../services/compareLogin.js');
 
 class LoginCtrl {
 	
@@ -12,19 +12,20 @@ class LoginCtrl {
 
 	post(req, res) {
 
+		const comparelogin = new compareLogin();
 
-		const IsValid = new isValid();
+		const pseudo = req.body.pseudo;
+		const pass = req.body.pass;
 
-		IsValid.validMail(req.body.mail);
+		//const comparePseudo = comparelogin.comparePseudo(pseudo)
+		const comparePass = comparelogin.comparePass(pseudo);
 
-		req.session.mail = req.body.mail;
-		const LOGIN = req.body.pass;
-		console.log(req.session.mail);
-		console.log(LOGIN);
+		/*if (comparePseudo && comparePass) {
+			console.log("yessaihhhihihi");
+		};*/
 
 
-		console.log('login post');
-		res.redirect('/login');
+		res.redirect('/');
 	}
 }
 

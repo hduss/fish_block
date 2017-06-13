@@ -65,10 +65,8 @@ class SQLmoves {
 
 				(error, results, fields) => {
 
-					console.log(results);
 					resolve(results);
-
-
+					console.log(results);
 					return results;
 				})
 		})

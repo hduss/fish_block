@@ -51,13 +51,7 @@ class RegistrationCtrl {
 
 					if (validAge && validSexe) {
 
-						console.log(validSexe.value);
-//--------------------------change in DTO DAO--------------------
-
 						VALID = true;
-
-
-//--------------------------change in DTO DAO--------------------
 
 					}else{
 
@@ -79,21 +73,20 @@ class RegistrationCtrl {
 
 		// if everything is valid / true
 		if (VALID) {
+
 			console.log('EVERYTHINGGUCCI !!');
 
-			let cryptPass = new Crypto(req.body.pass, config.default.crypt.algoCrypt, config.default.crypt.key );
-			let cryptMail = new Crypto(req.body.mail, config.default.crypt.algoCrypt, config.default.crypt.key);
-
-			cryptPass += cryptPass.cipher();
-			cryptMail += cryptMail.cipher();
-
-			console.log(cryptPass);
-			console.log(cryptMail);
+			const cryptPass = new Crypto(req.body.pass, config.default.crypt.algoCrypt, config.default.crypt.key );
+			const passCrypt = cryptPass.cipher();
+			console.log(passCrypt);
+			
 
 
 			const sqlmoves = new SQLmoves();
 
-			sqlmoves.insertUser(req.body.firstname, req.body.lastname, cryptMail, req.body.pseudo, cryptPass, req.body.age, null, "", 0, 0, req.body.sexe).then(results => res.redirect('/'));
+			sqlmoves.insertUser(req.body.firstname, req.body.lastname, req.body.mail, req.body.pseudo, passCrypt, req.body.age, null, "", 0, 0, req.body.sexe)
+
+				.then(results => res.redirect('/login'));
 
 			
 
