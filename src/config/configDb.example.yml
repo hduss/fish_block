@@ -1,11 +1,11 @@
 default:
     database:
-        host: HOST
-        user: USER
-        password: USER_PASSWORD
-        dbname: DATANASE_NAME
+        host: 127.0.0.1
+        user: root
+        password:
+        dbname: fil_rouge
     server:
-        port: port
+        port: 3000
     crypt:
-        key: CIPHER_KEY
-        algoCrypt: ALGO_TYPE
+        key: jK^ĵdh54hlKme3+egrh_$deFjKO£/??-N
+        algoCrypt: aes256
