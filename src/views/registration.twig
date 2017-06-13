@@ -1,0 +1,19 @@
+
+{% block registration %}
+
+<form method="post">
+	<label>nom <input type="text" name="lastname"></label></br></br>
+	<label>Prénom <input type="text" name="firstname" ></label></br></br>
+	<label>Adresse Mail <input type="mail" name="mail" ></label></br></br>
+	<label for="pseudo">pseudo <input type="text" name="pseudo"></label></br></br>
+	<label>password <input type="password" name="pass" ></label></br></br>
+	<label>confirm pasword <input type="password" name="passconfirm" ></label></br></br>
+	<label>Birthday <input type="number" name="age" value="20" ></label></br></br>
+	<label>Sexe : 
+		<label> Masculin<input type="radio" name="sexe" value="male"></label>
+		<label> Feminin<input type="radio" name="sexe" value="female"></label></label></br></br>
+	<input type="submit">
+</form>
+
+
+{% endblock%}

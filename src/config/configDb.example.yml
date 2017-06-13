@@ -1,0 +1,11 @@
+default:
+    database:
+        host: HOST
+        user: USER
+        password: USER_PASSWORD
+        dbname: DATANASE_NAME
+    server:
+        port: port
+    crypt:
+        key: CIPHER_KEY
+        algoCrypt: ALGO_TYPE
