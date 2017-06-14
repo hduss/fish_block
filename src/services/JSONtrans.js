@@ -1,4 +1,6 @@
 
+// class to transform SQL request's results in JSON object
+
 class JSONtrans {
 	
 	transform(results) {

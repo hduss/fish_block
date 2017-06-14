@@ -1,4 +1,5 @@
 const SQLmoves = require('../repositoryDAO/SQLmoves.repository.js');
+const JSONtrans = require('../services/JSONtrans.js');
 
 class HomeCtrl {
 	
@@ -15,13 +16,8 @@ class HomeCtrl {
 		const userSearch = sqlmoves.findUser(searchPseudo)
 			.then((results) => {
 
-				let string = JSON.stringify(results);
-
-				const json = JSON.parse(string);
-
-				const id = json[0].user_id;
-
-				console.log(id);
+				const jsontrans = new JSONtrans();
+				const result = jsontrans.transform(results);
 
 				//resolve(results);
 				res.render(`/user/${id}`, {results: results});

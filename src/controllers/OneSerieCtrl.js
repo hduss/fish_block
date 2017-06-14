@@ -1,6 +1,5 @@
 const mysql = require('mysql');
 const SQLmoves = require('../repositoryDAO/SQLmoves.repository.js');
-const userdto = require('../classDTO/userDTO.js');
 const yaml = require('yamljs');
 
 // yaml file for database connection

@@ -1,7 +1,7 @@
 
-
-
-<p>{{ result.firstName }}</p>
-<p>{{ result.lastName}}</p>
-<div>{{ result.pseudo}}</div>
-
+{%block pseudo%}
+<p class="pseudo">{{ result.pseudo}}</p>
+<p class="informations">Infos : <p>{{result.informations}}</p></p>
+<p class="first-name">{{ result.firstName }}</p>
+<p class="last-name">{{ result.lastName}}</p>
+{%endblock%}

@@ -1,4 +1,5 @@
-const SQLmoves = require('../repositoryDAO/SQLmoves.repository.js')
+const SQLmoves = require('../repositoryDAO/SQLmoves.repository.js');
+const JSONtrans = require('../services/JSONtrans.js');
 
 class isValid {
 
@@ -11,16 +12,24 @@ class isValid {
 		// compare userMail with regex
 		const compareMail = userMail.match(re);
 
-		if (compareMail) {
 
-			console.log('MAIL OK !!! ');
-			return true;
+		const sqlmoves = new SQLmoves();
+		const mailDB = sqlmoves.findOne('users', 'mail', userMail)
+			.then( results => {
+				console.log(userMail, "MAIL ALREADY EXIST")
 
-		}else{
+				if (compareMail === userMail) {
 
-			console.log('COMPARED FAILED !!! ');
-			return false;
-		}
+					console.log('MAIL INVALID !!! ');
+					return false;
+
+				}else if(!compareMail) {
+
+					console.log('MAIL INVALID !!! ');
+					return false;
+				}
+			});
+
 
 		// verifier si le mail est deja present dans la base de données 
 
@@ -34,32 +43,58 @@ class isValid {
 
 		const pseudoDB = sqlmoves.findUser(userPseudo)
 			.then( results => {
-
 				//console.log(results);
-				let string = JSON.string(results);
-				const json = JSON.parse(string);
 
-				const pseudo = json[0].pseudo;
+				const jsontrans = new JSONtrans();
+				const result = jsontrans.transform(results);
 
-				resolve(results);
-				return pseudo;
-		});
-		
+				console.log(JSON.stringify(result));
+				console.log("result", result.pseudo)
 
-		console.log("pseudoDB : " + pseudoDB);
+				
+				// if pseudo already exist in database
+				if (userPseudo === result.pseudo) {
+					console.log("PSEUDO INVALID, ALREADY EXIST");
+					return false;
 
-		if (userPseudo && userPseudo.length > 6) {
+				// else if input pseudo is empty or less than 4 caracter
+				}else if(!userPseudo || userPseudo.length < 4 ) {
+					console.log("PSEUDO INVALID, less than 4 caractere or EMPTY")
+					return false;
 
-			console.log('PSEUDO VALID !');
-			return true;
+				// else everything is ok
+				}else{
+					console.log("PSEUDO VALID ");
+					return true;
+				}
+				
+			
 
-		}else{
-
-			return false;
-		};
+			
 
 
-		// verifier si le pseudo est deja existant
+			/*if (userPseudo === result) {
+					//console.log("ALREADY EXIST");
+				//};
+
+				/*if (result === "undefined") {
+					console.log('PSEUDO INVALID, ALREADY EXIST');
+					return false;
+
+				}else if(userPSeudo && userPseudo > 4) {
+					console.log('PSEUDO VALIIIID');
+
+					return true;
+				}else {
+					console.log('PSEUDO INVALIIIIIID');
+				}*/
+
+
+
+			});
+
+
+
 	}
 
 
@@ -69,8 +104,10 @@ class isValid {
 		
     	//at least 8 characters, at least 1 numeric character, at least 1 lowercase letter, at least 1 uppercase letter, at least 1 special character
 
+    	//recover good regex
 		const regexPass = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/);
 
+		//verify if userPassword  
 		const verif = regexPass.test(this.userPassword);
 
 		console.log(verif);
@@ -129,7 +166,7 @@ class isValid {
 
 	validAge(age) {
 
-		if (age >= 18) {
+		if (age && age >= 18) {
 			console.log('AGE VALID');
 			return true;
 			

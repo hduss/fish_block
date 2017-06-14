@@ -1,11 +1,17 @@
 
+{% block serie%}
 <ul>
 	{% for result in results %}
 	    <li>
-	        <p><a href="/series/{{result.serie_id}}">{{ result.nameSerie }}</a></p>
-	        <p>{{ result.realisateur}}</p>
-	        <div>{{ result.synopsisSerie}}</div>
+
+	    	<div class="block-serie">
+		        <p><a href="/series/{{result.serie_id}}">{{ result.nameSerie }}</a></p>
+		        <p class="real">{{ result.realisateur}}</p>
+
+	        </div>
 
 	    </li>
 	{% endfor %}
 </ul>
+
+{%endblock%}

@@ -1,12 +1,10 @@
 //Generic DAO 
 const mysql = require('mysql');
-const user = require('../classDTO/userDTO.js');
 const yaml = require('yamljs');
 
 // yaml file for database connection
 const config = yaml.load('config/configDb.yml');
 
-const User = require('../classDTO/User.js');
 
 class SQLmoves {
 

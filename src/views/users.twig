@@ -1,15 +1,12 @@
+{% block users %}
 <ul>
 	{% for result in results %}
 	    <li>
-	    	<p>{{ result.user_id }}</p>
-	        <p>{{ result.firstName }}</p>
-	        <p>{{ result.lastName}}</p>
-	        <div>
+	    	
+	        <p class="pseudo">
 	        	<a href= "/userWall/{{result.user_id }}">{{result.pseudo}}</a>
-	        </div>
-
-
+	        </p>
 	    </li>
 	{% endfor %}
 </ul>
-
+{%endblock%}

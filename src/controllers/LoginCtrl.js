@@ -22,8 +22,17 @@ class LoginCtrl {
 		const pseudo = req.body.pseudo;
 		const pass = req.body.pass;
 
-		//const comparePseudo = comparelogin.comparePseudo(pseudo)
-		const comparePass = comparelogin.comparePseudo(pseudo);
+		const comparePseudoDb = comparelogin.comparePseudo(pseudo);
+		const comparePass = comparelogin.comparePass(pass);
+
+		console.log(comparePseudoDb);
+
+
+
+
+
+
+
 
 		/*if (comparePseudo && comparePass) {
 			console.log("yessaihhhihihi");
