@@ -2,7 +2,7 @@
 <ul>
 	{% for result in results %}
 	    <li>
-	        <p>{{ result.nameSerie }}</p>
+	        <p><a href="/series/{{result.serie_id}}">{{ result.nameSerie }}</a></p>
 	        <p>{{ result.realisateur}}</p>
 	        <div>{{ result.synopsisSerie}}</div>
 

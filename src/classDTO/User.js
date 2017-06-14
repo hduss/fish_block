@@ -2,7 +2,7 @@ class User{
 
 	constructor(firstName, lastName, mail, pseudo, password, birthday, informations, picture, isModerator, isAdmin, sexe){
 
-		this.firstName = firstname;
+		this.firstName = firstName;
 		this.lastName = lastName;
 		this.mail = mail;
 		this.pseudo = pseudo;

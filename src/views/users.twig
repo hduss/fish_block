@@ -1,0 +1,15 @@
+<ul>
+	{% for result in results %}
+	    <li>
+	    	<p>{{ result.user_id }}</p>
+	        <p>{{ result.firstName }}</p>
+	        <p>{{ result.lastName}}</p>
+	        <div>
+	        	<a href= "/userWall/{{result.user_id }}">{{result.pseudo}}</a>
+	        </div>
+
+
+	    </li>
+	{% endfor %}
+</ul>
+

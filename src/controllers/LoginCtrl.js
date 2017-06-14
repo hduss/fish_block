@@ -1,6 +1,11 @@
 const compareLogin = require('../services/compareLogin.js');
 
 class LoginCtrl {
+
+	constructor() {
+
+		
+	}
 	
 	get(req, res) {
 
@@ -18,7 +23,7 @@ class LoginCtrl {
 		const pass = req.body.pass;
 
 		//const comparePseudo = comparelogin.comparePseudo(pseudo)
-		const comparePass = comparelogin.comparePass(pseudo);
+		const comparePass = comparelogin.comparePseudo(pseudo);
 
 		/*if (comparePseudo && comparePass) {
 			console.log("yessaihhhihihi");

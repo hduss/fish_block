@@ -1,4 +1,4 @@
-
+const SQLmoves = require('../repositoryDAO/SQLmoves.repository.js')
 
 class isValid {
 
@@ -29,6 +29,24 @@ class isValid {
 
 
 	validPseudo(userPseudo) {
+
+		const sqlmoves = new SQLmoves();
+
+		const pseudoDB = sqlmoves.findUser(userPseudo)
+			.then( results => {
+
+				//console.log(results);
+				let string = JSON.string(results);
+				const json = JSON.parse(string);
+
+				const pseudo = json[0].pseudo;
+
+				resolve(results);
+				return pseudo;
+		});
+		
+
+		console.log("pseudoDB : " + pseudoDB);
 
 		if (userPseudo && userPseudo.length > 6) {
 

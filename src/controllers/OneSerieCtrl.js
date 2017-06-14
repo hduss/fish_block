@@ -1,15 +1,16 @@
 const mysql = require('mysql');
 const SQLmoves = require('../repositoryDAO/SQLmoves.repository.js');
 const userdto = require('../classDTO/userDTO.js');
-
 const yaml = require('yamljs');
 
 // yaml file for database connection
 const config = yaml.load('config/configDb.yml');
 
+const JSONtrans = require('../services/JSONtrans.js');
 
 
-class SeriesCtrl {
+
+class OneSerieCtrl {
 
 	/*constructor(connection) {
 
@@ -18,13 +19,22 @@ class SeriesCtrl {
 
 	get(req, res) {
 
+		const serie_id = req.params.numserie;
+
 		const sqlmoves = new SQLmoves();
 
+				
 
-		sqlmoves.findAll('series').then(
-			results => {
-				res.render('series.twig', {results: results});
+		sqlmoves.findOne('series', 'serie_id', serie_id)
+			.then(results => {
 				console.log(results);
+
+
+				const jsontrans = new JSONtrans();
+				const result = jsontrans.transform(results);
+
+
+				res.render('oneSerie.twig', {result: result});
 			}
 		);
 
@@ -44,4 +54,4 @@ class SeriesCtrl {
 }
 
 
-module.exports = SeriesCtrl;
+module.exports = OneSerieCtrl;

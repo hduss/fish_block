@@ -41,36 +41,13 @@ connection.connect((err) => {
  	// INIT SERVER AFTER DB
  	const app = express();
 
-	/*connection.query('UPDATE users SET firstName = ? WHERE user_id = ?', ['pieuvre', "1"], (error, results, fields) => {
-	  if (error) throw error;
-	  console.log("UPDATED");
-	});*/
-
-
- 	/*connection.query('INSERT INTO users SET firstName=?',  "JAMBONBEURRE", (error, results, fields) => {
- 		console.log('insertion OKKKKKK!!!');
- 	})*/
-
-	/*connection.query('DELETE FROM users WHERE user_id = 1', (error, results, fields) => {
-	  if (error) throw error;
-	  console.log('deleted ' + fields + ' rows');
-	});*/
-
-
-
-
-	/*const urlencoderParser = bodyParser.urlencoded({extended: false});*/
-
-
  	// MIDDLEWARES
-
 
  	// bodyParser to use input submit
 	app.use(bodyParser.json())
 	app.use(bodyParser.urlencoded({ 
 		extended: true 
 	}));
-
 
  	app.use(session({
 
@@ -84,7 +61,10 @@ connection.connect((err) => {
 	const registrationCtrl = require('./controllers/RegistrationCtrl.js');
 	const loginCtrl = require('./controllers/LoginCtrl.js');
 	const homeCtrl = require('./controllers/HomeCtrl.js');
-	const seriesCtrl = require('./controllers/SeriesCtrl');
+	const seriesCtrl = require('./controllers/SeriesCtrl.js');
+	const userCtrl = require('./controllers/UserCtrl.js');
+	const userWallCtrl = require('./controllers/UserWallCtrl.js')
+	const oneSerieCtrl = require('./controllers/OneSerieCtrl.js');
 
 
 
@@ -93,11 +73,15 @@ connection.connect((err) => {
 	const LoginCtrl = new loginCtrl();
 	const HomeCtrl = new homeCtrl();
 	const SeriesCtrl = new seriesCtrl(/*connection*/);
+	const UserCtrl = new userCtrl();
+	const UserWallCtrl = new userWallCtrl();
+	const OneSerieCtrl = new oneSerieCtrl();
 
 
 
  	// ROUTES CREATION
 	app.get('/', HomeCtrl.get);
+	app.post('/', HomeCtrl.post);
 
 	app.get('/registration', RegistrationCtrl.get);
 	app.post('/registration', RegistrationCtrl.post);
@@ -105,14 +89,15 @@ connection.connect((err) => {
 	app.get('/login', LoginCtrl.get);
 	app.post('/login', LoginCtrl.post);
 
-	app.get('/series', SeriesCtrl.get);
+	app.get('/users', UserCtrl.get);
+	app.get('/userWall/:user_id', UserWallCtrl.get)
 
 
 	// en attente pour la liste des episodes
-	app.get('serie/:numserie/episodes', SeriesCtrl.get);
+
+	app.get('/series', SeriesCtrl.get);
+	app.get('/series/:numserie', OneSerieCtrl.get);
 	app.get('serie/:numserie/episode/:numepisode', SeriesCtrl.get);
-
-
 
 
 	const port = process.env.PORT || config.default.server.port; 

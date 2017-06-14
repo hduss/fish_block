@@ -6,6 +6,8 @@ const yaml = require('yamljs');
 // yaml file for database connection
 const config = yaml.load('config/configDb.yml');
 
+const User = require('../classDTO/User.js');
+
 class SQLmoves {
 
 	constructor() {
@@ -90,10 +92,10 @@ class SQLmoves {
 
 				(error, results, fields) => {
 
-					console.log(results);
-					console.log(error);
-					console.log(fields);
+					/*let users = new User(results.firstName, results.lastName, results.mail, results.pseudo, results. password, results.birthday, results.informations, results.picture, results.isModerator, results.isAdmin, results.sexe);*/
 
+					console.log(results);
+					//console.log(users);
 					
 					resolve(results);
 
@@ -103,6 +105,59 @@ class SQLmoves {
 
 
 	}
+
+
+
+	findUser(pseudo) {
+
+		return new Promise((resolve, reject) => {
+
+			this.pool.query(
+
+				`SELECT * 
+				FROM users
+				WHERE pseudo = ?`, [pseudo], 
+
+				(error, results, fields) => {
+
+					resolve(results);
+					return results;
+				});
+		})
+
+		.catch((error) => {
+			throw error;
+		})
+
+		
+
+
+
+	}
+
+	findUserByID(id) {
+
+		return new Promise((resolve, reject) => {
+
+			this.pool.query(
+
+				`SELECT * 
+				FROM users
+				WHERE user_id = ?`, [id], 
+
+				(error, results, fields) => {
+
+					resolve(results);
+					return results;
+				});
+		})
+
+		.catch((error) => {
+			throw error;
+		})
+
+	}
+
 
 
 

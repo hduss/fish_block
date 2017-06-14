@@ -15,7 +15,14 @@ class compareLogin{
 
 	comparePseudo(pseudo) {
 
-		this.sqlmoves.findOne('users', 'pseudo', pseudo ).then(results => console.log(results));
+		this.sqlmoves.findOne('users', 'pseudo', pseudo )
+
+			.then(results => {
+
+				let string = JSON.stringify(results);
+				const json = JSON.parse(string);
+				console.log(json);
+			});
 		//.then(results => return results);
 
 
@@ -26,13 +33,10 @@ class compareLogin{
 		const result = this.sqlmoves.findOne('users', 'pseudo', user)
 			.then( (results) => {
 				console.log(JSON.stringify(results));
-
-
-				
+				// voir HomeCtrl pour json recup result[];
 
 
 			});
-
 	}
 }
 
