@@ -5,33 +5,71 @@ class isValid {
 
 	validMail(userMail) {
 
+
+		return new Promise((resolve, reject) => {
+
 		// regex for mail
-		const re = new RegExp(/(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\.+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})/gi);
-
-	
-		// compare userMail with regex
-		const compareMail = userMail.match(re);
-
-
-		const sqlmoves = new SQLmoves();
-		const mailDB = sqlmoves.findOne('users', 'mail', userMail)
-			.then( results => {
-				console.log(userMail, "MAIL ALREADY EXIST")
-
-				if (compareMail === userMail) {
-
-					console.log('MAIL INVALID !!! ');
-					return false;
-
-				}else if(!compareMail) {
-
-					console.log('MAIL INVALID !!! ');
-					return false;
-				}
-			});
+			const re = new RegExp(/(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\.+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})/gi);
+		
+			// compare userMail with regex
+			let compareMail = userMail.match(re);
+			const sqlmoves = new SQLmoves();
 
 
-		// verifier si le mail est deja present dans la base de données 
+			// if mail format is valid 
+			if (compareMail) { 
+
+
+				sqlmoves.findOne('users', 'mail', compareMail)
+					.then(results => {
+
+						// instance of JSONtrans() -> /services
+						const jsontrans = new JSONtrans();
+						// on transforme l'object en JSON
+						let result = jsontrans.transform(results);
+
+
+						if (!result) {
+
+							console.log('l\'adresse mail n\'existe pas en BDD');
+
+							result = true;
+
+							console.log("result.mail : " + result.mail);
+
+						}else{
+
+							result = false;
+							console.log('l\'adresse mail existe DEJA en BDD');
+									
+		
+						}
+
+						//result egale a l'objet users de la BDD
+						// undefined if not in database 
+						console.log('result after if else : ' + result);
+						//console.log('result.mail' + result.mail);
+
+						console.log('compareMail : ' + compareMail);
+						console.log('userMail : ' + userMail);
+
+						resolve(result);
+
+			
+					})
+
+					.catch((error) => {console.log(error)});
+
+
+			// if mail format is not valid
+			}else{
+				console.log('l\'adresse mail n\'est pas valide');
+
+			};
+
+
+
+		})
 
 
 	}
@@ -39,60 +77,41 @@ class isValid {
 
 	validPseudo(userPseudo) {
 
-		const sqlmoves = new SQLmoves();
+		return new Promise((resolve, reject) => {
 
-		const pseudoDB = sqlmoves.findUser(userPseudo)
-			.then( results => {
-				//console.log(results);
 
-				const jsontrans = new JSONtrans();
-				const result = jsontrans.transform(results);
+			const sqlmoves = new SQLmoves();
 
-				console.log(JSON.stringify(result));
-				console.log("result", result.pseudo)
+			sqlmoves.findUser(userPseudo)
 
-				
-				// if pseudo already exist in database
-				if (userPseudo === result.pseudo) {
-					console.log("PSEUDO INVALID, ALREADY EXIST");
-					return false;
+				.then( results => {
 
-				// else if input pseudo is empty or less than 4 caracter
-				}else if(!userPseudo || userPseudo.length < 4 ) {
-					console.log("PSEUDO INVALID, less than 4 caractere or EMPTY")
-					return false;
+					const jsontrans = new JSONtrans();
 
-				// else everything is ok
-				}else{
-					console.log("PSEUDO VALID ");
-					return true;
-				}
-				
+					// send just first result because there is just one account per person
+					let result = jsontrans.transform(results);
+
+					if (!result) {
+
+						result = true;
+						console.log('Le pseudo n\'existe pas en BDD');
+
+					}else{
+
+						result = false;
+						console.log('le pseudo existe en base de donnée');
+
+					}
+
+					console.log('result of pseudo >> ' + result)
+
+					resolve(result);
 			
+				})
 
-			
+				.catch((error) => console.log(error));
 
-
-			/*if (userPseudo === result) {
-					//console.log("ALREADY EXIST");
-				//};
-
-				/*if (result === "undefined") {
-					console.log('PSEUDO INVALID, ALREADY EXIST');
-					return false;
-
-				}else if(userPSeudo && userPseudo > 4) {
-					console.log('PSEUDO VALIIIID');
-
-					return true;
-				}else {
-					console.log('PSEUDO INVALIIIIIID');
-				}*/
-
-
-
-			});
-
+		})
 
 
 	}
@@ -100,7 +119,6 @@ class isValid {
 
 	validPassword(userPassword) {
 
-		this.userPassword = userPassword;
 		
     	//at least 8 characters, at least 1 numeric character, at least 1 lowercase letter, at least 1 uppercase letter, at least 1 special character
 
@@ -108,18 +126,14 @@ class isValid {
 		const regexPass = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/);
 
 		//verify if userPassword  
-		const verif = regexPass.test(this.userPassword);
+		const verif = regexPass.test(userPassword);
 
 		console.log(verif);
 
 		if (verif) {
 
-			console.log('PASSWORD VALID !!! ');
-
 			return true;
 		}else{
-
-			console.log('PASSWORD INVALID');
 
 			return false;
 		}
@@ -132,9 +146,11 @@ class isValid {
 
 		if ((userPassword && verifPassword) && userPassword === verifPassword) {
 
-			console.log('VERIF PASSWORD OK !!!');
 			return true;
-		};
+		}else{
+
+			return false;
+		}
 	}
 
 
@@ -142,11 +158,11 @@ class isValid {
 
 		if (firstName && typeof firstName === "string") {
 
-			console.log("FIRSTNAME VALID !!");
+
 			return true;
 		}else{
 
-			console.log('FIRSTNAME INVALID');
+
 			return false;
 		};
 	}
@@ -155,11 +171,10 @@ class isValid {
 
 		if (lastName && typeof lastName === "string") {
 			
-			console.log("LASTNAME VALID !!");
+
 			return true;
 		}else{
 
-			console.log('LASTNAME INVALID');
 			return false;
 		};
 	}
@@ -167,7 +182,7 @@ class isValid {
 	validAge(age) {
 
 		if (age && age >= 18) {
-			console.log('AGE VALID');
+
 			return true;
 			
 		}else{

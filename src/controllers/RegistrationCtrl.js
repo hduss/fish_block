@@ -35,53 +35,78 @@ class RegistrationCtrl {
 		let validAge = IsValid.validAge(req.body.age);
 		let validSexe = IsValid.validSexe(req.body.sexe);
 
+		let VALID = false;
 
-		// Promise to wait the result of VALID
-		return new Promise((resolve, reject) => {
 
-			// global variable to check each input
-			let VALID = false;
+		validMail
+		.then((result) => {
 
-			if (validFirstName && validLastName & validMail) {
+			console.log('RESULT : ' + result);
+
+			if (result) {
+
+				console.log('on avance petit a petit');
 				VALID = true;
+				console.log('VALID >> ' + VALID);
 
-				if (validPseudo) {
-					VALID = true;
+				validPseudo.then((result) => {
 
-					if ( validPass && validPassCompare) {
-
-
+					if (result) {
+						console.log('on va encore dans le bon sens');
 						VALID = true;
+						console.log('VALID >> ' + VALID);
 
-						if (validAge && validSexe) {
 
+						if (validFirstName && validLastName) {
 							VALID = true;
+
+							if ( validPass && validPassCompare) {
+
+								VALID = true;
+
+								if (validAge && validSexe) {
+
+									VALID = true;
+
+								}else{
+
+									VALID = false;
+
+								}
+
+							}else{
+
+								VALID = false;
+							}
 
 						}else{
 
 							VALID = false;
 						}
+
+
 					}else{
 
+						console.log('mauvais coté');
 						VALID = false;
+						console.log('VALID >> ' + VALID);
 					}
 
-				}else{
+					resolve(result);
 
-					VALID = false;
-				}
+				})
+
+				.catch((error) => console.log(error));
 
 			}else{
 
 				VALID = false;
+				console.log('ici ca craint');
+				console.log('VALID >> ' + VALID);
 			}
 
-			resolve(VALID);
-			return VALID;
 
-		})
-
-		.then(VALID => {
+			
 
 			if (VALID) {
 
@@ -112,7 +137,26 @@ class RegistrationCtrl {
 
 				res.redirect('/registration');
 			}
-		});
+
+
+
+			
+			
+		})
+
+		.catch((error) => console.log(error));
+
+
+
+
+				// global variable to check each input
+
+
+
+
+
+			
+
 		
 		// all verifications for the registration form 
 
