@@ -26,138 +26,113 @@ class RegistrationCtrl {
 		const IsValid = new isValid();
 
 		//recover input registration and put in variables
-		let validLastName = IsValid.validLastName(req.body.lastname);
-		let validFirstName = IsValid.validFirstName(req.body.firstname);
+		//let validLastName = IsValid.validLastName(req.body.lastname);
+		//let validFirstName = IsValid.validFirstName(req.body.firstname);
 		let validMail = IsValid.validMail(req.body.mail);
 		let validPseudo = IsValid.validPseudo(req.body.pseudo);
 		let validPass = IsValid.validPassword(req.body.pass);
 		let validPassCompare = IsValid.validComparePassword(req.body.pass, req.body.passconfirm);
-		let validAge = IsValid.validAge(req.body.age);
-		let validSexe = IsValid.validSexe(req.body.sexe);
+		//let validAge = IsValid.validAge(req.body.age);
+		//let validSexe = IsValid.validSexe(req.body.sexe);
 
 		let VALID = false;
 
 
-		validMail
+		
+		validPseudo
 		.then((result) => {
-
-			console.log('RESULT : ' + result);
+			console.log('.then result PSEUDO >> ' + result);
+			
 
 			if (result) {
-
-				console.log('on avance petit a petit');
 				VALID = true;
-				console.log('VALID >> ' + VALID);
+				console.log('PSEUDO VALID >> ' , VALID);
 
-				validPseudo.then((result) => {
+				validMail
+				.then((result) => {
+					console.log('.then result MAIL >>' +  result);
 
 					if (result) {
-						console.log('on va encore dans le bon sens');
 						VALID = true;
-						console.log('VALID >> ' + VALID);
+						console.log('MAIL VALID >> ' , VALID);
+
+						if (validPass && validPassCompare) {
+
+							VALID = true
+							console.log('PASSWORD VALID >> ' + VALID);
 
 
-						if (validFirstName && validLastName) {
-							VALID = true;
+							if (VALID) {
 
-							if ( validPass && validPassCompare) {
+								console.log("VALIDDDDDDDDDDDDDDDDDD");
+								console.log('EVERYTHINGGUCCI !!');
 
-								VALID = true;
+								const cryptPass = new Crypto(req.body.pass, config.default.crypt.algoCrypt, config.default.crypt.key );
+								const passCrypt = cryptPass.cipher();
+								console.log(passCrypt);
 
-								if (validAge && validSexe) {
+								console.log('VALID GLOBAL >>>>>>' + VALID);
 
-									VALID = true;
+								res.redirect('/login');
+								
 
-								}else{
 
-									VALID = false;
+								/*const sqlmoves = new SQLmoves();
 
-								}
+								sqlmoves.insertUser(req.body.firstname, req.body.lastname, req.body.mail, req.body.pseudo, passCrypt, req.body.age, null, "", 0, 0, req.body.sexe)
 
+									.then(results => res.redirect('/login'));
+
+								
+
+								// appel a un cookie ou session
+
+								//res.redirect('/');
+								// NEW USER*/
 							}else{
 
-								VALID = false;
+								console.log('UNLOGGED :/');
+								console.log('VALID GLOBAL >>>>>>' + VALID);
+
+								res.redirect('/registration');
 							}
 
-						}else{
 
+
+
+						}else{
 							VALID = false;
+							console.log('PASSWORD VALID >> ' + VALID);
+							console.log('VALID GLOBAL >>>>>>' + VALID);
 						}
 
 
+
 					}else{
-
-						console.log('mauvais coté');
 						VALID = false;
-						console.log('VALID >> ' + VALID);
-					}
-
-					resolve(result);
-
+						console.log('MAIL VALID >> ' + VALID);
+						console.log('VALID GLOBAL >>>>>>' + VALID);
+						
+					} 
+					
 				})
-
 				.catch((error) => console.log(error));
 
-			}else{
 
+			}else{
 				VALID = false;
-				console.log('ici ca craint');
-				console.log('VALID >> ' + VALID);
+				console.log('PSEUDO VALID >> ' + VALID);
+				console.log('VALID GLOBAL >>>>>>' + VALID);
 			}
-
 
 			
 
-			if (VALID) {
-
-				console.log("VALIDDDDDDDDDDDDDDDDDD");
-				console.log('EVERYTHINGGUCCI !!');
-
-				const cryptPass = new Crypto(req.body.pass, config.default.crypt.algoCrypt, config.default.crypt.key );
-				const passCrypt = cryptPass.cipher();
-				console.log(passCrypt);
-				
-
-
-				/*const sqlmoves = new SQLmoves();
-
-				sqlmoves.insertUser(req.body.firstname, req.body.lastname, req.body.mail, req.body.pseudo, passCrypt, req.body.age, null, "", 0, 0, req.body.sexe)
-
-					.then(results => res.redirect('/login'));
-
-				
-
-				// appel a un cookie ou session
-
-				//res.redirect('/');
-				// NEW USER*/
-			}else{
-
-				console.log('UNLOGGED :/');
-
-				res.redirect('/registration');
-			}
-
-
-
-			
 			
 		})
-
 		.catch((error) => console.log(error));
 
 
-
-
-				// global variable to check each input
-
-
-
-
-
-			
-
-		
+	
 		// all verifications for the registration form 
 
 		// if everything is valid / true

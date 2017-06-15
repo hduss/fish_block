@@ -43,6 +43,7 @@ connection.connect((err) => {
 
  	// MIDDLEWARES
 
+ 	
  	// bodyParser to use input submit
 	app.use(bodyParser.json())
 	app.use(bodyParser.urlencoded({ 
