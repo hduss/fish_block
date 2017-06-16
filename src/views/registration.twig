@@ -1,17 +1,16 @@
 
+
 {% block registration %}
 
 <form method="post">
-	<label>nom <input type="text" name="lastname" required="true"></label></br></br>
-	<label>Prénom <input type="text" name="firstname" required="true"></label></br></br>
-	<label>Adresse Mail <input type="mail" name="mail" required="true"></label></br></br>
 	<label for="pseudo">pseudo <input type="text" name="pseudo" required="true"></label></br></br>
+	<label>Adresse Mail <input type="mail" name="mail" required="true"></label></br></br>
 	<label>password <input type="password" name="pass" required="true"></label></br></br>
-	<label>confirm pasword <input type="password" name="passconfirm" required="true"></label></br></br>
-	<label>Birthday <input type="number" name="age" value="20" required="true"></label></br></br>
+	<label>confirm pasword <input type="password" name="passconfirm" required="true"></br></br>
 	<label>Sexe : 
-		<label> Masculin<input type="radio" name="sexe" value="male" required="true"></label>
-		<label> Feminin<input type="radio" name="sexe" value="female"required="true"></label></label></br></br>
+		<label>Homme <input name="sexe" type="radio" value="male"></label>
+		<label>Femme <input name="sexe" type="radio" value"female"></label>
+	</label>
 	<input type="submit">
 </form>
 

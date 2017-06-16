@@ -8,69 +8,58 @@ class isValid {
 
 		return new Promise((resolve, reject) => {
 
-		// regex for mail
+
+			// regex for mail
 			const re = new RegExp(/(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\.+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})/gi);
 		
 			// compare userMail with regex
 			let compareMail = userMail.match(re);
+
+
 			const sqlmoves = new SQLmoves();
 
 
 			// if mail format is valid 
-			if (compareMail) { 
+			if (compareMail) {
 
+				console.log('mail valid ' + compareMail);
 
 				sqlmoves.findOne('users', 'mail', compareMail)
-					.then(results => {
 
-						// instance of JSONtrans() -> /services
-						const jsontrans = new JSONtrans();
-						// on transforme l'object en JSON
-						let result = jsontrans.transform(results);
+				.then(results => {
 
 
-						if (!result) {
+					const jsontrans = new JSONtrans();
 
-							console.log('l\'adresse mail n\'existe pas en BDD');
+					let result = jsontrans.transform(results);
 
-							result = true;
+					console.log('result of database MAIL >> ', result);
+					
 
-							console.log("result.mail : " + result.mail);
+					// if result exist -> mail unexepted 
+					if (result) {
+						console.log('MAIL already exist in database');
+						result = false;
+					// mail is accepted
+					}else{
+						console.log('MAIL is valid >>' + compareMail);
+						result = true;
+					}
 
-						}else{
+					// resolve result to use it in registratioCtrl in validMail.then
+					resolve(result);
 
-							result = false;
-							console.log('l\'adresse mail existe DEJA en BDD');
-									
-		
-						}
+				})
 
-						//result egale a l'objet users de la BDD
-						// undefined if not in database 
-						console.log('result after if else : ' + result);
-						//console.log('result.mail' + result.mail);
-
-						console.log('compareMail : ' + compareMail);
-						console.log('userMail : ' + userMail);
-
-						resolve(result);
-
-			
-					})
-
-					.catch((error) => {console.log(error)});
-
-
-			// if mail format is not valid
+				.catch((error) => {console.log(error)});
+				
 			}else{
-				console.log('l\'adresse mail n\'est pas valide');
 
-			};
-
+				console.log('mail invalid >>' + userMail)
+			}
 
 
 		})
-
 
 	}
 
@@ -79,8 +68,37 @@ class isValid {
 
 		return new Promise((resolve, reject) => {
 
-
 			const sqlmoves = new SQLmoves();
+
+			if (userPseudo.length >= 4 ) {
+				console.log('PSEUDO Valid >> ' + userPseudo);
+
+				sqlmoves.findUser(userPseudo)
+				.then(results => {
+
+					const jsontrans = new JSONtrans();
+					let result = jsontrans.transform(results);
+
+					console.log('result PSEUDO >> ', result);
+
+					if (result) {
+						console.log('PSEUDO already exist in database ', result);
+						result = false;
+					}else{
+						console.log('PSEUDO valid ' + userPseudo);
+						result = true;
+					}
+
+					resolve(result);
+				})
+
+				.catch((error) => console.log(error));
+
+			}else{
+				console.log('PSEUDO inValid >> ' + userPseudo);
+			}
+
+		
 
 			sqlmoves.findUser(userPseudo)
 
@@ -91,25 +109,12 @@ class isValid {
 					// send just first result because there is just one account per person
 					let result = jsontrans.transform(results);
 
-					if (!result) {
-
-						result = true;
-						console.log('Le pseudo n\'existe pas en BDD');
-
-					}else{
-
-						result = false;
-						console.log('le pseudo existe en base de donnée');
-
-					}
-
-					console.log('result of pseudo >> ' + result)
-
 					resolve(result);
-			
+				
 				})
 
 				.catch((error) => console.log(error));
+
 
 		})
 
