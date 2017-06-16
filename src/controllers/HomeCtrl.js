@@ -4,7 +4,7 @@ const JSONtrans = require('../services/JSONtrans.js');
 class HomeCtrl {
 	
 	get(req, res) {
-		res.render('layout.twig');
+		res.render('base.html.twig');
 	}
 
 	post(req, res) {

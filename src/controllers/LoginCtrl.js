@@ -1,4 +1,7 @@
 const compareLogin = require('../services/compareLogin.js');
+const bcrypt = require('bcryptjs');
+const yaml = require('yamljs');
+const config = yaml.load('config/configDb.yml');
 
 class LoginCtrl {
 
@@ -20,12 +23,66 @@ class LoginCtrl {
 		const comparelogin = new compareLogin();
 
 		const pseudo = req.body.pseudo;
-		const pass = req.body.pass;
+		let password = req.body.password;
 
-		const comparePseudoDb = comparelogin.comparePseudo(pseudo);
-		const comparePass = comparelogin.comparePass(pass);
 
-		console.log(comparePseudoDb);
+		let comparePseudo = comparelogin.comparePseudo(pseudo);
+		let comparePass = comparelogin.comparePass(pseudo, password);
+
+		let validLogin = false;
+
+
+
+
+		comparePseudo
+		.then( result => {
+			console.log('RESULT PSEUDO >>> ', result);
+
+			if (result) {
+
+				validLogin = true;
+				console.log('.THEN resultPSeudo >> ' , result);
+
+				comparePass
+				.then(result => {
+
+					console.log('RESULT PASSWORD >> ' , result);
+
+					//const decipher =  bcrypt.compareSync(password, result); // true 
+
+
+
+					console.log('DECIPHER PASS >>> ', decipher);
+
+					if (result) {
+						console.log('COMPARE ok');
+						res.redirect('/');
+
+
+
+					}else{
+
+						console.log('COMPARE FALSE');
+
+						res.redirect('/login');
+					}
+
+
+				})
+
+				.catch((error) => console.log(error));
+
+
+
+			}else{
+
+				validLogin = false;
+			}
+		})
+
+		.catch((error) => console.log(error));
+
+
 
 
 
@@ -38,8 +95,6 @@ class LoginCtrl {
 			console.log("yessaihhhihihi");
 		};*/
 
-
-		res.redirect('/');
 	}
 }
 

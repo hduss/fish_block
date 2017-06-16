@@ -7,6 +7,8 @@ const config = yaml.load('config/configDb.yml');
 
 const SQLmoves = require('../repositoryDAO/SQLmoves.repository.js');
 
+var bcrypt = require('bcryptjs');
+
 
 class RegistrationCtrl {
 
@@ -71,42 +73,49 @@ class RegistrationCtrl {
 
 
 
-
-							
-
-
 								if (VALID) {
 
 									console.log("VALIDDDDDDDDDDDDDDDDDD");
 									console.log('EVERYTHINGGUCCI !!');
 
-									const cryptPass = new Crypto(req.body.pass, config.default.crypt.algoCrypt, config.default.crypt.key );
-									const passCrypt = cryptPass.cipher();
-									console.log(passCrypt);
-
 									console.log('VALID GLOBAL >>>>>>' + VALID);
 
-									res.redirect('/login');
+									const salt = bcrypt.genSaltSync(10);
+									const hash = bcrypt.hashSync(req.body.pass, salt);
+
+									console.log('HASH >>> ', hash);
+
+					
 									
 
 
-									/*const sqlmoves = new SQLmoves();
+									const sqlmoves = new SQLmoves();
 
-									sqlmoves.insertUser(req.body.firstname, req.body.lastname, req.body.mail, req.body.pseudo, passCrypt, req.body.age, null, "", 0, 0, req.body.sexe)
 
-										.then(results => res.redirect('/login'));
+
+
+
+
+
+									sqlmoves.insertUser("", "", req.body.mail, req.body.pseudo, hash, "", null, "", 0, 0, req.body.sexe)
+
+										.then(results => {
+											console.log('INSERT OK');
+											res.redirect('/login');
+										})
+										.catch((error) => console.log(error));
 
 									
 									// appel a un cookie ou session
 
 									//res.redirect('/');
-									// NEW USER*/
+									// NEW USER
 								}else{
 
 									console.log('UNLOGGED :/');
 									console.log('VALID GLOBAL >>>>>>' + VALID);
 
-									res.redirect('/registration');
+									//res.redirect('/registration');
 								}
 
 							}else{

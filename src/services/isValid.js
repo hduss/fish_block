@@ -59,7 +59,7 @@ class isValid {
 			}
 
 
-		})
+		});
 
 	}
 
@@ -98,25 +98,7 @@ class isValid {
 				console.log('PSEUDO inValid >> ' + userPseudo);
 			}
 
-		
-
-			sqlmoves.findUser(userPseudo)
-
-				.then( results => {
-
-					const jsontrans = new JSONtrans();
-
-					// send just first result because there is just one account per person
-					let result = jsontrans.transform(results);
-
-					resolve(result);
-				
-				})
-
-				.catch((error) => console.log(error));
-
-
-		})
+		});
 
 
 	}

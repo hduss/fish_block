@@ -4,6 +4,7 @@ const Crypto = require('../services/crypto.js');
 const yaml = require('yamljs');
 const config = yaml.load('config/configDb.yml');
 const JSONtrans = require('../services/JSONtrans.js');
+const bcrypt = require('bcryptjs');
 
 
 class compareLogin{
@@ -16,43 +17,90 @@ class compareLogin{
 
 	comparePseudo(pseudo) {
 
-		this.sqlmoves.findOne('users', 'pseudo', pseudo)
+		return new Promise((resolve, reject) => {
 
-			.then(results => {
+			this.sqlmoves.findUser(pseudo)
 
-				const jsontrans = new JSONtrans();
-				const result = jsontrans.transform(results);
+				.then(results => {
+
+					const jsontrans = new JSONtrans();
+					let result = jsontrans.transform(results);
+
+					console.log('result >>>> ',  result);
+
+					//console.log(result);
+					//console.log(result.firstName);
+
+					if (result) {
+
+						console.log('LE pseudo correspond a un pseudo valid >> ', result.pseudo);
+						result = true;
+		
+
+					}else{
+
+						console.log("le login ne correspond a aucun compte");
+						result = false;
+					}
 
 
+					//resolve(result);
+					resolve(result);
+				})
 
-				//console.log(result);
-				//console.log(result.firstName);
-
-				if (result.pseudo === pseudo) {
-
-					console.log('RESUUUULT');
-					return result[0];
-
-				}else{
-
-					console.log("NOOOOOOOOOOOOOOOOOOOOOOT");
-					return false;
-				}
-			});
-		//.then(results => return results);
-
+				.catch((error) => console.log(error));
+			//.then(results => return results);
+		})
 
 	}
 
-	comparePass(user) {
-
-		const result = this.sqlmoves.findOne('users', 'pseudo', user)
-			.then( (results) => {
-				console.log(JSON.stringify(results));
-				// voir HomeCtrl pour json recup result[];
 
 
-			});
+
+
+	comparePass(userPseudo, userPassword) {
+			this.password = userPassword;
+
+		return new Promise((resolve, reject) => {
+
+
+			this.sqlmoves.findUser(userPseudo)
+
+				.then((results) => {
+
+					const jsontrans = new JSONtrans();
+
+					let result = jsontrans.transform(results);
+
+
+					console.log("RESULT PASS >>> ", result);
+
+					let pass = result.password;
+
+					if (result) {
+
+						console.log('PASSWORD >>>>> ', result.password);
+
+						/*const decipher =  bcrypt.compareSync(this.password, pass ); // true 
+						console.log('DECRYPT >>>> ',  + decipher);*/
+
+						
+						
+						
+					}else{
+
+						console.log('le pseudo ne correspond a aucun compte');
+					}
+
+
+					resolve(result);
+
+
+				})
+
+				.catch((error) => console.log(error));
+		})
+
 	}
 }
 
