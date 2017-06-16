@@ -23,11 +23,12 @@ class LoginCtrl {
 		const comparelogin = new compareLogin();
 
 		const pseudo = req.body.pseudo;
-		let password = req.body.password;
-
+		let password = req.body.pass;
 
 		let comparePseudo = comparelogin.comparePseudo(pseudo);
-		let comparePass = comparelogin.comparePass(pseudo, password);
+		let comparePass = comparelogin.comparePass(pseudo);
+
+
 
 		let validLogin = false;
 
@@ -38,24 +39,31 @@ class LoginCtrl {
 		.then( result => {
 			console.log('RESULT PSEUDO >>> ', result);
 
+			console.log("PASSWORD INPUT : ",password);
+
 			if (result) {
 
 				validLogin = true;
 				console.log('.THEN resultPSeudo >> ' , result);
 
 				comparePass
-				.then(result => {
+				.then((result, userPassword) => {
 
-					console.log('RESULT PASSWORD >> ' , result);
+					console.log('.THEN RESULT PASSWORD >> ' , result);
 
-					//const decipher =  bcrypt.compareSync(password, result); // true 
+					
+					console.log('REQ.BODY >>> ', req.body.pass);
+
+					const decipher =  bcrypt.compareSync(password, result); // true 
 
 
 
 					console.log('DECIPHER PASS >>> ', decipher);
 
-					if (result) {
+					if (decipher) {
 						console.log('COMPARE ok');
+
+						//creer un cookie qui suis l'utilisateur
 						res.redirect('/');
 
 

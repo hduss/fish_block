@@ -58,9 +58,7 @@ class compareLogin{
 
 
 
-	comparePass(userPseudo, userPassword) {
-			this.password = userPassword;
-
+	comparePass(userPseudo) {
 		return new Promise((resolve, reject) => {
 
 
@@ -81,8 +79,10 @@ class compareLogin{
 
 						console.log('PASSWORD >>>>> ', result.password);
 
-						/*const decipher =  bcrypt.compareSync(this.password, pass ); // true 
-						console.log('DECRYPT >>>> ',  + decipher);*/
+						result = result.password;
+
+						//const decipher =  bcrypt.compareSync(this.password, pass ); // true 
+						console.log('DECRYPT >>>> ',  + result);
 
 						
 						
