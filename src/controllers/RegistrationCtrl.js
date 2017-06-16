@@ -49,7 +49,8 @@ class RegistrationCtrl {
 				VALID = true;
 				console.log('VALID >> ' + VALID);
 
-				validPseudo.then((result) => {
+				validPseudo
+				.then((result) => {
 
 					if (result) {
 						console.log('on va encore dans le bon sens');
@@ -92,7 +93,7 @@ class RegistrationCtrl {
 						console.log('VALID >> ' + VALID);
 					}
 
-					resolve(result);
+				
 
 				})
 
@@ -105,8 +106,9 @@ class RegistrationCtrl {
 				console.log('VALID >> ' + VALID);
 			}
 
+		
 
-			
+
 
 			if (VALID) {
 
