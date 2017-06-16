@@ -10,6 +10,8 @@ class SQLmoves {
 
 	constructor() {
 
+
+		// creeta pool connection 
 		this.pool = mysql.createPool({
 			host     : config.default.database.host,
 			user     : config.default.database.user,
@@ -21,13 +23,7 @@ class SQLmoves {
 	}
 
 
-	// En param, il faut passer le nom de la classe provenant du require('****')
-	/*constructor(className) {
-		this._className = className;
-	}*/
-
-	
-
+	// find all in table
 	findAll(table) {
 
 
@@ -41,8 +37,6 @@ class SQLmoves {
 				console.log(results);
 				resolve(results);
 
-			//const allResults = results;
-
 				return results;
 
 			})
@@ -52,7 +46,7 @@ class SQLmoves {
 	}
 
 
-
+	//find one thing 
 	findOne(table, toSearch, condition) {
 
 		return new Promise((resolve, reject) => {
@@ -73,12 +67,23 @@ class SQLmoves {
 
 	}
 
+	insertSerie(nameSerie, real, synopsis, nbrSaison, nbrEpisode, genderSerie) {
+		const values = {
+			nameSerie; nameSerie, realisateur: real, synopsisSerie: synopsis,nbrSaison: nbrSaison, nbrEpisode: nbrEpisode gender: genderSerie};
 
-
-	findDecipher() {
-
+			return new Promise((resolve, reject) => {
+				this.pool.query("INSERT INTO series SET ?", values,
+					(error, results, fields) => {
+						console.log(results);
+						resolve(results);
+					})
+			})
+		}
 	}
 
+
+	// insert user 
+	// to first registration, just mail, pseudo, password and sexe are insert in database
 	insertUser(firstName, lastName, mail, pseudo, password, birthday, informations, picture, isModerator, isAdmin, sexe) {
 
 		const values = {firstName: firstName, lastName: lastName, mail: mail, pseudo: pseudo, password: password, birthday: birthday, informations: informations, picture: picture, isModerator: isModerator, isAdmin: isAdmin, sexe: sexe};
@@ -100,11 +105,10 @@ class SQLmoves {
 			})
 		})
 
-
 	}
 
 
-
+	// find user by pseudo
 	findUser(pseudo) {
 
 		return new Promise((resolve, reject) => {
@@ -126,12 +130,11 @@ class SQLmoves {
 			throw error;
 		})
 
-		
-
-
-
+	
 	}
 
+
+	//find user by id
 	findUserByID(id) {
 
 		return new Promise((resolve, reject) => {
@@ -156,37 +159,7 @@ class SQLmoves {
 	}
 
 
-
-
-	/*insertCipher(table, condition, toInsert) {
-
-		const cryptPass = new Crypto(toInsert, config.default.crypt.algoCrypt, config.default.crypt.key );
-
-
-		const ciphed = cryptPass.cipher();
-
-		return new Promise((resolve, reject) => {
-
-			this.pool.query(`
-				INSERT INTO ${table} 
-				SET ${condition} = ? `, [ciphed], 
-
-				(eror, results, fields) => {
-
-					console.log(results);
-					resolve(results);
-
-					return results;
-
-
-			})
-			
-		})
-
-
-	}*/
-
-
+	// update datas
 	updateOne(table, condition1, condition2, egal1, egal2 ) {
 
 		return new Promise((resolve, reject) => {
@@ -209,7 +182,7 @@ class SQLmoves {
 
 	}
 
-
+	// delete datas
 	delete(table, condition, toDelete) {
 
 		return new Promise((resolve, reject) => {
@@ -243,13 +216,6 @@ class SQLmoves {
 
 }
 
-// const sqlMoves = new SQLmoves(userDTO);
 
-// sqlMoves.findAll().then(
-	// results => console.log(results);
-//	results => {
-//		results.forEach(result => console.log(result.firstName))
-//	}
-//)
 
 module.exports = SQLmoves;

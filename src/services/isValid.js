@@ -24,6 +24,7 @@ class isValid {
 
 				console.log('mail valid ' + compareMail);
 
+				// search in database if email already exist
 				sqlmoves.findOne('users', 'mail', compareMail)
 
 				.then(results => {
@@ -40,7 +41,8 @@ class isValid {
 					if (result) {
 						console.log('MAIL already exist in database');
 						result = false;
-					// mail is accepted
+
+					// else mail is accepted
 					}else{
 						console.log('MAIL is valid >>' + compareMail);
 						result = true;
@@ -70,9 +72,11 @@ class isValid {
 
 			const sqlmoves = new SQLmoves();
 
+
 			if (userPseudo.length >= 4 ) {
 				console.log('PSEUDO Valid >> ' + userPseudo);
 
+				//same thing for pseudo, to keep unique pseudo
 				sqlmoves.findUser(userPseudo)
 				.then(results => {
 
@@ -112,7 +116,7 @@ class isValid {
     	//recover good regex
 		const regexPass = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/);
 
-		//verify if userPassword  
+		//verify if format userPassword is valid with the regex 
 		const verif = regexPass.test(userPassword);
 
 		console.log(verif);
@@ -129,6 +133,7 @@ class isValid {
 	}
 
 
+	// verif if twice password in registartion input are the same
 	validComparePassword(userPassword, verifPassword) {
 
 		if ((userPassword && verifPassword) && userPassword === verifPassword) {
@@ -166,6 +171,7 @@ class isValid {
 		};
 	}
 
+
 	validAge(age) {
 
 		if (age && age >= 18) {
@@ -177,6 +183,7 @@ class isValid {
 			return false;
 		};
 	}
+
 
 	validSexe(sexe) {
 

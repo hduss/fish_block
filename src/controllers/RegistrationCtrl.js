@@ -45,12 +45,12 @@ class RegistrationCtrl {
 		.then((result) => {
 			console.log('.then result PSEUDO >> ' + result);
 			
-
+			// if result = true, VALID change value
 			if (result) {
 				VALID = true;
 				console.log('PSEUDO VALID >> ' , VALID);
 
-
+				
 				validMail
 				.then((result) => {
 					console.log('.then result MAIL >>' +  result);
@@ -80,6 +80,7 @@ class RegistrationCtrl {
 
 									console.log('VALID GLOBAL >>>>>>' + VALID);
 
+									// cipher user password in database if all conditions === true
 									const salt = bcrypt.genSaltSync(10);
 									const hash = bcrypt.hashSync(req.body.pass, salt);
 

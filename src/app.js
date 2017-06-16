@@ -15,6 +15,14 @@ const config = yaml.load('config/configDb.yml');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 
+const jwt = require('jsonwebtoken');
+
+const TVDB = require('node-tvdb');
+const tvdb = new TVDB('6656E759AFC49A1A');
+
+
+
+
 
 
 // create the connection with parameters from configDb.yml
@@ -43,6 +51,15 @@ connection.connect((err) => {
 
  	// MIDDLEWARES
 
+
+ 
+
+
+tvdb.getSeriesByName('south park')
+    .then(response => {
+    	console.log(response)})
+    .catch(error => { console.log(error)});
+
  	
  	// bodyParser to use input submit
 	app.use(bodyParser.json())
@@ -55,6 +72,10 @@ connection.connect((err) => {
 		secret:'secret',
 		cookie: { maxAge: 60000 }
 	}));
+
+
+
+
 
 
 

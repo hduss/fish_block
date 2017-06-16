@@ -1,3 +1,4 @@
+// load node modules 
 const compareLogin = require('../services/compareLogin.js');
 const bcrypt = require('bcryptjs');
 const yaml = require('yamljs');
@@ -12,29 +13,32 @@ class LoginCtrl {
 	
 	get(req, res) {
 
-		console.log('login get');
+		// render login template
 		res.render('login.twig');
 
 	}
 
-
+	// after submit
 	post(req, res) {
 
+		// create new instance of compareLogin to use this functions
 		const comparelogin = new compareLogin();
 
+		//recover input data
 		const pseudo = req.body.pseudo;
 		let password = req.body.pass;
 
+		// use functions of compareLogin on input datas
 		let comparePseudo = comparelogin.comparePseudo(pseudo);
 		let comparePass = comparelogin.comparePass(pseudo);
 
 
-
+		// global variable to 
 		let validLogin = false;
 
 
 
-
+		// promise result
 		comparePseudo
 		.then( result => {
 			console.log('RESULT PSEUDO >>> ', result);

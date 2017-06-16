@@ -19,11 +19,14 @@ class compareLogin{
 
 		return new Promise((resolve, reject) => {
 
+			// find user by pseudo
 			this.sqlmoves.findUser(pseudo)
 
 				.then(results => {
 
+					// new instance JSONtrans()
 					const jsontrans = new JSONtrans();
+					// change results in JSON format with .transform from JSONtrans()
 					let result = jsontrans.transform(results);
 
 					console.log('result >>>> ',  result);
@@ -31,12 +34,14 @@ class compareLogin{
 					//console.log(result);
 					//console.log(result.firstName);
 
+					// if there is a result
 					if (result) {
+
 
 						console.log('LE pseudo correspond a un pseudo valid >> ', result.pseudo);
 						result = true;
 		
-
+					// if there is no result / impossible login
 					}else{
 
 						console.log("le login ne correspond a aucun compte");
@@ -61,11 +66,12 @@ class compareLogin{
 	comparePass(userPseudo) {
 		return new Promise((resolve, reject) => {
 
-
+			// find user by pseudo
 			this.sqlmoves.findUser(userPseudo)
 
 				.then((results) => {
 
+					// transform results
 					const jsontrans = new JSONtrans();
 
 					let result = jsontrans.transform(results);
@@ -75,10 +81,12 @@ class compareLogin{
 
 					let pass = result.password;
 
+					// if user exist in databse
 					if (result) {
 
 						console.log('PASSWORD >>>>> ', result.password);
 
+						//recover his password to use it in the LoginCtrl
 						result = result.password;
 
 						//const decipher =  bcrypt.compareSync(this.password, pass ); // true 
@@ -86,10 +94,11 @@ class compareLogin{
 
 						
 						
-						
+					// else -> new try
 					}else{
 
 						console.log('le pseudo ne correspond a aucun compte');
+						res.redirect('/login');
 					}
 
 
