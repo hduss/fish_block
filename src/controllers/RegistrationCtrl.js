@@ -48,13 +48,19 @@ class RegistrationCtrl {
 				VALID = true;
 				console.log('PSEUDO VALID >> ' , VALID);
 
+
+
 				validMail
 				.then((result) => {
 					console.log('.then result MAIL >>' +  result);
 
+
+
 					if (result) {
 						VALID = true;
 						console.log('MAIL VALID >> ' , VALID);
+
+
 
 						if (validPass && validPassCompare) {
 
@@ -64,7 +70,7 @@ class RegistrationCtrl {
 
 							if (VALID) {
 
-								console.log("VALIDDDDDDDDDDDDDDDDDD");
+				
 								console.log('EVERYTHINGGUCCI !!');
 
 								const cryptPass = new Crypto(req.body.pass, config.default.crypt.algoCrypt, config.default.crypt.key );
@@ -77,18 +83,12 @@ class RegistrationCtrl {
 								
 
 
-								/*const sqlmoves = new SQLmoves();
+								const sqlmoves = new SQLmoves();
 
 								sqlmoves.insertUser(req.body.firstname, req.body.lastname, req.body.mail, req.body.pseudo, passCrypt, req.body.age, null, "", 0, 0, req.body.sexe)
 
 									.then(results => res.redirect('/login'));
 
-								
-
-								// appel a un cookie ou session
-
-								//res.redirect('/');
-								// NEW USER*/
 							}else{
 
 								console.log('UNLOGGED :/');
@@ -97,16 +97,11 @@ class RegistrationCtrl {
 								res.redirect('/registration');
 							}
 
-
-
-
 						}else{
 							VALID = false;
 							console.log('PASSWORD VALID >> ' + VALID);
 							console.log('VALID GLOBAL >>>>>>' + VALID);
 						}
-
-
 
 					}else{
 						VALID = false;
@@ -116,7 +111,14 @@ class RegistrationCtrl {
 					} 
 					
 				})
+
+
+
 				.catch((error) => console.log(error));
+
+
+
+
 
 
 			}else{
@@ -125,10 +127,11 @@ class RegistrationCtrl {
 				console.log('VALID GLOBAL >>>>>>' + VALID);
 			}
 
-			
-
-			
 		})
+
+
+
+
 		.catch((error) => console.log(error));
 
 
