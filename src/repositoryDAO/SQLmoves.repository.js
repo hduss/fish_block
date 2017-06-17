@@ -68,12 +68,15 @@ class SQLmoves {
 	}
 
 	insertSerie(nameSerie, real, synopsis, nbrSaison, nbrEpisode, genderSerie) {
-		const values = {
-			nameSerei: nameSerie, realisateur: real, synopsisSerie: synopsis,nbrSaison: nbrSaison, nbrEpisode: nbrEpisode, gender: genderSerie};
+		/*const values = 
+			nameSerie: nameSerie, realisateur: real, synopsisSerie: synopsis,nbrSaison: nbrSaison, nbrEpisode: nbrEpisode, gender: genderSerie};*/
 
 			return new Promise((resolve, reject) => {
-				this.pool.query("INSERT INTO series SET ?", values,
+
+				this.pool.query("INSERT INTO series SET ?", {nameSerie: nameSerie, realisateur: real, synopsisSerie: synopsis,nbrSaison: nbrSaison, nbrEpisode: nbrEpisode, genderSerie: genderSerie},
+
 					(error, results, fields) => {
+
 						console.log(results);
 						resolve(results);
 					})

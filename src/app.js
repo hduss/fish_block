@@ -19,9 +19,12 @@ const session = require('express-session');
 const jwt = require('jsonwebtoken');
 
 const TVDB = require('node-tvdb');
-const tvdb = new TVDB('6656E759AFC49A1A');
 
-const Populate = require('./services/populate.js');
+
+const tvdb = new TVDB(config.default.tvDb.key);
+
+// to populate database withe theTvDb API
+const Populate = require('./services/Populate.js');
 
 
 
@@ -57,13 +60,14 @@ connection.connect((err) => {
 
 
 
- 
-
-
-tvdb.getSeriesByName('The walking dead')
+/*tvdb.getSeriesByName('The walking dead')
     .then(response => {
     	console.log(response)})
-    .catch(error => { console.log(error)});
+    .catch(error => { console.log(error)});*/
+
+const populate = new Populate();
+
+populate.insertSerie('south park');
 
 
 
@@ -85,8 +89,6 @@ tvdb.getSeriesByName('The walking dead')
 app.use(express.static(path.join(__dirname, '../public')));
 
 
-
-const populate = new Populate();
 
 
 

@@ -9,3 +9,5 @@ default:
     crypt:
         key: CIPHER_KEY
         algoCrypt: ALGO_TYPE
+    tvDb:
+        key: API_KEY_TVDB

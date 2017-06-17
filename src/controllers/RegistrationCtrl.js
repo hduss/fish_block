@@ -2,11 +2,8 @@ const isValid = require('../services/isValid.js');
 const yaml = require('yamljs');
 const crypto = require('crypto');
 const Crypto = require('../services/crypto.js');
-
 const config = yaml.load('config/configDb.yml');
-
 const SQLmoves = require('../repositoryDAO/SQLmoves.repository.js');
-
 var bcrypt = require('bcryptjs');
 
 
