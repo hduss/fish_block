@@ -21,17 +21,24 @@ class HomeCtrl {
 				const jsontrans = new JSONtrans();
 				const result = jsontrans.transform(results);
 
-				console.log(result.nameSerie);
-				console.log(result.serie_id);
-				console.log(result);
-
-				const id = result.serie_id;
+				if (result) {
 
 
-				//resolve(results);
-				// include user id in url to have dynamic variable and can use data in the template
-				res.redirect(`/series/${id}`);
+					console.log(result.nameSerie);
+					console.log(result.serie_id);
+					console.log(result);
+
+					const id = result.serie_id;
+
+					res.redirect(`/series/${id}`);
+
+				}else{
+					res.redirect('/');
+				}
 			})
+			
+					
+			
 
 			.catch((error) => console.log(error));
 
