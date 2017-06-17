@@ -60,14 +60,14 @@ connection.connect((err) => {
 
 
 
-/*tvdb.getSeriesByName('The walking dead')
+/*tvdb.get('The walking dead')
     .then(response => {
     	console.log(response)})
     .catch(error => { console.log(error)});*/
 
 const populate = new Populate();
 
-populate.insertSerie('south park');
+//populate.insertSerie('the simpson');
 
 
 
@@ -87,10 +87,6 @@ populate.insertSerie('south park');
 
 // express.static to use static files like css/js client/img
 app.use(express.static(path.join(__dirname, '../public')));
-
-
-
-
 
 
 

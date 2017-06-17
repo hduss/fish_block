@@ -18,8 +18,6 @@ class Populate{
 
 
 
-
-
 insertSerie(nameSerie) {
 
 	tvdb.getSeriesByName(nameSerie)
@@ -31,7 +29,7 @@ insertSerie(nameSerie) {
 
 	    	console.log('RESULT TRANSFORM >>>> ', responseJson.overview);
 	    	console.log(response);
-	    	this.sqlmoves.insertSerie(responseJson.seriesName,"realisateur1", responseJson.overview, 0, 0,  " ")
+	    	this.sqlmoves.insertSerie(responseJson.seriesName,"realisateur1", responseJson.overview, 0, 0,  " ", responseJson.banner)
 	    		.then( results => console.log("INSERT >>>", results))
 	    		.catch((error) => console.log(error));
 	    })
@@ -43,9 +41,7 @@ insertSerie(nameSerie) {
 
 
 
-
-
-	insertEpisode(idSerie){
+	insertEpisodes(idSerie){
 
 		tvdb.getEpisodesBySeriesId(153021)
 	    .then(response => { 
