@@ -161,6 +161,31 @@ class SQLmoves {
 
 	}
 
+	// find user by pseudo
+	findSerie(nameSerie) {
+
+		return new Promise((resolve, reject) => {
+
+			this.pool.query(
+
+				`SELECT * 
+				FROM series
+				WHERE nameSerie = ?`, [nameSerie], 
+
+				(error, results, fields) => {
+
+					resolve(results);
+					return results;
+				});
+		})
+
+		.catch((error) => {
+			throw error;
+		})
+
+	
+	}
+
 
 	// update datas
 	updateOne(table, condition1, condition2, egal1, egal2 ) {

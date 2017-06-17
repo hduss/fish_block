@@ -4,24 +4,33 @@ const JSONtrans = require('../services/JSONtrans.js');
 class HomeCtrl {
 	
 	get(req, res) {
-		res.render('../views/app/base.html.twig');
+		res.render('app/home.html.twig');
 	}
 
 	post(req, res) {
 
-		const searchPseudo = req.body.search;
+		const search = req.body.search;
 
 		const sqlmoves = new SQLmoves();
 
-		const userSearch = sqlmoves.findUser(searchPseudo)
+		const userSearch = sqlmoves.findSerie(search)
 			.then((results) => {
+
+				console.log(results);
 
 				const jsontrans = new JSONtrans();
 				const result = jsontrans.transform(results);
 
+				console.log(result.nameSerie);
+				console.log(result.serie_id);
+				console.log(result);
+
+				const id = result.serie_id;
+
+
 				//resolve(results);
 				// include user id in url to have dynamic variable and can use data in the template
-				res.render(`/user/${id}`, {results: results});
+				res.redirect(`/series/${id}`);
 			})
 
 			.catch((error) => console.log(error));

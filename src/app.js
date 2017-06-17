@@ -12,23 +12,19 @@ const yaml = require('yamljs');
 // yaml file for database connection
 const config = yaml.load('config/configDb.yml');
  	
-
+// to recover input data
 const bodyParser = require('body-parser');
-const session = require('express-session');
 
+
+const session = require('express-session');
 const jwt = require('jsonwebtoken');
 
+// new instance to use tvDb API
 const TVDB = require('node-tvdb');
-
-
 const tvdb = new TVDB(config.default.tvDb.key);
 
 // to populate database withe theTvDb API
 const Populate = require('./services/Populate.js');
-
-
-
-
 
 
 
@@ -58,8 +54,6 @@ connection.connect((err) => {
 
  	// MIDDLEWARES
 
-
-
 /*tvdb.get('The walking dead')
     .then(response => {
     	console.log(response)})
@@ -67,11 +61,7 @@ connection.connect((err) => {
 
 const populate = new Populate();
 
-//populate.insertSerie('the simpson');
-
-
-
-
+//populate.insertSerie('scorpion');
  	
  	// bodyParser to use input submit
 	app.use(bodyParser.json())
@@ -85,10 +75,8 @@ const populate = new Populate();
 		cookie: { maxAge: 60000 }
 	}));
 
-// express.static to use static files like css/js client/img
-app.use(express.static(path.join(__dirname, '../public')));
-
-
+	// express.static to use static files like css/js client/img
+	app.use(express.static(path.join(__dirname, '../public')));
 
 
 
@@ -100,6 +88,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 	const userCtrl = require('./controllers/UserCtrl.js');
 	const userWallCtrl = require('./controllers/UserWallCtrl.js')
 	const oneSerieCtrl = require('./controllers/OneSerieCtrl.js');
+	const menuCtrl = require('./controllers/MenuCtrl.js');
 
 
 
@@ -133,6 +122,12 @@ app.use(express.static(path.join(__dirname, '../public')));
 	app.get('/series', SeriesCtrl.get);
 	app.get('/series/:numserie', OneSerieCtrl.get);
 	app.get('serie/:numserie/episode/:numepisode', SeriesCtrl.get);
+
+	app.use(function(err, req, res, next) {
+ 		 console.error(err.stack);
+  		res.status(404).send('Something broke!');
+	});
+
 
 
 	const port = process.env.PORT || config.default.server.port; 

@@ -17,7 +17,7 @@ class Populate{
 	}
 
 
-
+// to insert serie in database mysql after search by name with te api the tvDb
 insertSerie(nameSerie) {
 
 	tvdb.getSeriesByName(nameSerie)
