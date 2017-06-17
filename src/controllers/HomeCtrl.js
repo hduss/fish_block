@@ -4,7 +4,7 @@ const JSONtrans = require('../services/JSONtrans.js');
 class HomeCtrl {
 	
 	get(req, res) {
-		res.render('layout.twig');
+		res.render('../views/app/base.html.twig');
 	}
 
 	post(req, res) {
@@ -20,8 +20,11 @@ class HomeCtrl {
 				const result = jsontrans.transform(results);
 
 				//resolve(results);
+				// include user id in url to have dynamic variable and can use data in the template
 				res.render(`/user/${id}`, {results: results});
-			});
+			})
+
+			.catch((error) => console.log(error));
 
 			
 	}

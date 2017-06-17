@@ -4,6 +4,7 @@ const mysql = require('mysql');
 
 // yamljs, parse, stringify and load functions
 const twig = require ('twig');
+const path = require('path');
 
 // to read input forms
 const yaml = require('yamljs');
@@ -14,6 +15,17 @@ const config = yaml.load('config/configDb.yml');
 
 const bodyParser = require('body-parser');
 const session = require('express-session');
+
+const jwt = require('jsonwebtoken');
+
+const TVDB = require('node-tvdb');
+const tvdb = new TVDB('6656E759AFC49A1A');
+
+const Populate = require('./services/populate.js');
+
+
+
+
 
 
 
@@ -43,6 +55,19 @@ connection.connect((err) => {
 
  	// MIDDLEWARES
 
+
+
+ 
+
+
+tvdb.getSeriesByName('The walking dead')
+    .then(response => {
+    	console.log(response)})
+    .catch(error => { console.log(error)});
+
+
+
+
  	
  	// bodyParser to use input submit
 	app.use(bodyParser.json())
@@ -55,6 +80,17 @@ connection.connect((err) => {
 		secret:'secret',
 		cookie: { maxAge: 60000 }
 	}));
+
+// express.static to use static files like css/js client/img
+app.use(express.static(path.join(__dirname, '../public')));
+
+
+
+const populate = new Populate();
+
+
+
+
 
 
 

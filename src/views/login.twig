@@ -1,12 +1,41 @@
 
 {% block login %}
 
-<form method="post">
-	
-	<label for="pseudo">Pseudo <input name="pseudo" type="text" required placeholder="email ou pseudo"></label></br></br>
-	<label for="pass">password <input name="pass" type="text" required placeholder="password"></label></br></br>
-	<input type="submit">
-</form>
+<div class="container">
+	<div class="row main">
+		<div class="main-login main-center">
+		<p class="titre">Se connecter !</p>
 
+
+			<form method="post">
+				
+				<div class="form-group">
+					<label class="cols-sm-2 control-label">Pseudo</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+							<input type="text" name="pseudo" required="true" class="form-control" id="name"  placeholder="Entrez votre pseudo"/>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="cols-sm-2 control-label">Votre mot de passe</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+							<input name="pass" type="password" required="true" class="form-control" id="mdp"  placeholder="Entrez Votre mot de passe"/>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group ">
+					<input type="submit" class="btn btn-primary btn-lg btn-block login-button" value="Connexion">
+				</div>
+				
+			</form>
+		</div>
+	</div>
+</div>
 
 {% endblock %}

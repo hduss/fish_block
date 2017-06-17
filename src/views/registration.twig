@@ -1,13 +1,76 @@
 
 {% block registration %}
+<div class="container">
+	<div class="row main">
+		<div class="main-login main-center">
+		<p class="titre">Rejoignez la communauté de FanDeSéries.com !</p>
 
-<form method="post">
-	<label for="pseudo">pseudo <input type="text" name="pseudo" required="true"></label></br></br>
-	<label>Adresse Mail <input type="mail" name="mail" required="true"></label></br></br>
-	<label>password <input type="password" name="pass" required="true"></label></br></br>
-	<label>confirm pasword <input type="password" name="passconfirm" required="true"></br></br>
-	<input type="submit">
-</form>
+
+			<!--{% block registration %}-->
+
+			<form method="post">
+				
+				<div class="form-group">
+					<label class="cols-sm-2 control-label">Pseudo</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+							<input type="text" name="pseudo" required="true" class="form-control" id="name"  placeholder="Entrez votre pseudo"/>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="cols-sm-2 control-label">Votre e-mail</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+							<input type="mail" name="mail" required="true" class="form-control" id="email"  placeholder="Entrez Votre e-mail"/>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="cols-sm-2 control-label">Mot de passe</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+							<input type="password" name="pass" required="true" class="form-control" id="username"  placeholder="Entrez votre mot de passe"/>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="password" class="cols-sm-2 control-label">Confirmez votre mot de passe</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+							<input type="password" name="passconfirm" required="true" class="form-control" id="password"  placeholder="Confirmez votre mot de passe"/>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="cols-sm-2 control-label">Sexe</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							
+							<label class="radio-inline"><input name="sexe" required="true" type="radio" value="male" id="confirm"  />Homme</label>
+							<label class="radio-inline"><input name="sexe" required="true" type="radio" value="male" id="confirm" />Femme</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group ">
+					<input type="submit" class="btn btn-primary btn-lg btn-block login-button" value="S'inscrire">
+				</div>
+				
+			</form>
+			<!--{% endblock%}-->
+
+		</div>
+	</div>
+</div>
 
 
 {% endblock%}
