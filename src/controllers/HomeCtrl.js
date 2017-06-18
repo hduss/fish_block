@@ -4,7 +4,22 @@ const JSONtrans = require('../services/JSONtrans.js');
 class HomeCtrl {
 	
 	get(req, res) {
-		res.render('app/home.html.twig');
+
+		const sqlmoves = new SQLmoves();
+
+		sqlmoves.findAll('series')
+		.then(results => {
+			res.render('app/home.html.twig', {results: results});
+			console.log('RESULT ID >>>>', results.serie_id);
+
+			resolve(results);
+		})
+		.catch((error) => console.log(error));
+
+
+
+
+		
 	}
 
 	post(req, res) {
@@ -36,8 +51,6 @@ class HomeCtrl {
 					res.redirect('/');
 				}
 			})
-			
-					
 			
 
 			.catch((error) => console.log(error));

@@ -5,6 +5,11 @@ body, html {
 	background-color: #f3f2f0;
 }
 
+.block-menu{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
 /*Pas de trait sous les liens footer*/
 a, a:hover {
 	text-decoration: none;
@@ -45,7 +50,7 @@ nav a {
 }
 
 nav a:hover {
-	color: #57bc74;
+	color: #ee3124;
 }
 
 
@@ -180,6 +185,88 @@ span.input-group-addon i {
 
 /*--------------------------------------END LOGIN/INSCRIPTION--------------------------------------*/
 
+/*-------------------------------------- LIST SERIES--------------------------------------*/
+
+.block-serie{
+    margin: auto;
+
+    width: 800px;
+    text-align: left;
+    /*border-top: 1px solid #9cd9e1;*/
+    border: 1px solid white;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    /*padding-left: 15px;
+    padding-right: 15px;*/
+    padding: 15px;
+    /*border-radius: 5px;*/
+    background-color: #ECECEC;
+    box-shadow: 2px, 2px, 2px;
+    
+
+}
+
+
+.block-serie img{
+
+    display: inline-block;
+    width: 150px;
+    max-width: 100%;
+    height: auto;
+}
+
+.block-sy{
+    display: inline-block;
+}
+
+.list-serie{
+    list-style-type: none;
+}
+
+
+
+.name{
+    text-align: center;
+    font-size: 25px;
+    color: #58bc72;
+}
+
+
+/*-------------------------------------- END LIST SERIES--------------------------------------*/
+
+
+/*-------------------------------------- ONE SERIE--------------------------------------*/
+
+.block-one-serie{
+
+    margin: auto;
+    width: 800px;
+    text-align: left;
+    border: 1px solid white;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: #ECECEC;
+    box-shadow: 2px, 2px, 2px;
+    
+
+}
+
+
+
+/*-------------------------------------- END ONE SERIE--------------------------------------*/
+
+
+
+/*-------------------------------------- CONTACT--------------------------------------*/
+
+.contact{
+ 
+    text-align: center;
+}
+/*--------------------------------------  END CONTACT--------------------------------------*/
+
+
 
 /*--------------------------------------CAROUSEL--------------------------------------*/
 
@@ -258,6 +345,16 @@ span.input-group-addon i {
 
 /*--------------------------------------END IMAGES PAGE ACCUEIL--------------------------------------*/
 
+
+/*------------------------------------------CGU, FAQ, MENTIONS --------------------------------------*/
+
+.foot{
+    width: 800px;
+    margin: auto;
+    text-align: left;
+}
+
+/*--------------------------------------------------END--------------------------------------*/
 
 
 /*--------------------------------------FOOTER--------------------------------------*/

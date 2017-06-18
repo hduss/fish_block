@@ -82,6 +82,24 @@ class SQLmoves {
 					})
 			})
 		}
+
+
+
+	insertEpisodes(nameEpisode, synopsisEpisode, serie_id) {
+
+		return new Promise((resolve, reject) => {
+
+			this.pool.query('INSERT INTO episodes SET ?', {
+				nameEpisode: nameEpisode, synopsisEpisode: synopsisEpisode, serie_id: serie_id}, 
+
+				(error, results, fields) => {
+
+					console.log(results);
+					resolve(results);
+				})
+
+		})
+	}
 	
 
 

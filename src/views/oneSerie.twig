@@ -1,10 +1,14 @@
 
 {% block body%}
-<p class="name">{{result.nameSerie}}</p>
-<p class="block_synopsis">Synopsis : <p class="synopsis">{{ result.synopsisSerie}}</p></p>
-<p class="nbr_saison">nombre de saison : {{ result.nbrSaison}}</p>
-<p class="nbr_episodes">nombes d'épisodes : {{result.nbrEpisode}}</p>
-<p class="list_saison">liste des saisons : </p>
-<p class="gender">genre : {{result.genderSerie}}</p>
+
+<div class="block-one-serie">
+	<h1 class="name">{{result.nameSerie}}</h1>
+	<img src="{{result.banner}}">
+	<p class="block_synopsis">Synopsis : <p class="synopsis">Synopsis : {{ result.synopsisSerie}}</p></p>
+	<p class="nbr_saison">nombre de saison : {{ result.nbrSaison}}</p>
+	<p class="nbr_episodes">nombes d'épisodes : {{result.nbrEpisode}}</p>
+	<p class="gender">genre : {{result.genderSerie}}</p>
+	<a href="/series/{{result.serie_id}}/episodes">Tous les episodes</a>
+</div>
 
 {%endblock%}

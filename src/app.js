@@ -53,14 +53,24 @@ connection.connect((err) => {
 
  	// MIDDLEWARES
 
-/*tvdb.get('The walking dead')
+/*tvdb.getEpisodesBySeriesId(153021)
+	.then(response => {
+		console.log(response);
+	})
+
+	.catch((error) => console.log(error));
+   */
+ /*
+tvdb.getSeriesByName('the walking dead')
     .then(response => {
     	console.log(response)})
     .catch(error => { console.log(error)});*/
 
 const populate = new Populate();
 
-//populate.insertSerie('scorpion');
+
+
+//populate.insertEpisodes(153021, 2);
  	
  	// bodyParser to use input submit
 	app.use(bodyParser.json())
@@ -113,7 +123,7 @@ const populate = new Populate();
 	app.post('/login', LoginCtrl.post);
 
 	app.get('/users', UserCtrl.get);
-	app.get('/userWall/:user_id', UserWallCtrl.get)
+	app.get('/userWall/:user_id', UserWallCtrl.get);
 
 
 	// en attente pour la liste des episodes
@@ -122,17 +132,26 @@ const populate = new Populate();
 	app.post('/series', SeriesCtrl.post);
 	app.get('/series/:numserie', OneSerieCtrl.get);
 	app.post('/series/:numserie', OneSerieCtrl.post);
+	//app.get('/series/:numserie/episodes', EpisodesCtrl.get);
 	//app.get('serie/:numserie/episode/:numepisode', SeriesCtrl.get);
 
-	app.get('/contact', (req, res) => {
-		res.render('app/contact.twig');
+	app.get('/contact', (req, res) => {res.render('app/contact.html.twig');
 	});
 
-	app.use(function(err, req, res, next) {
+	app.get('/mentions', (req, res) => {res.render('app/mentions.html.twig');
+	});
+
+	app.get('/cgu', (req, res) => {res.render('app/cgu.html.twig');
+	});
+
+	app.get('/faq', (req, res) => {res.render('app/faq.html.twig');
+	});
+
+	/*app.use(function(err, req, res, next) {
  		 console.error(err.stack);
   		res.status(404).send('Something broke!');
 	});
-
+*/
 
 
 	const port = process.env.PORT || config.default.server.port; 

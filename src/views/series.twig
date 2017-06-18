@@ -2,12 +2,17 @@
 {% block body%}
 <ul>
 	{% for result in results %}
-	    <li>
+	    <li class="list-serie">
 
 	    	<div class="block-serie">
-		        <p><a href="/series/{{result.serie_id}}">{{ result.nameSerie }}</a></p>
-		        <p class="real">{{ result.realisateur}}</p>
-		        <button class="follow">suivre</button>
+		        <p class="name"><a href="/series/{{result.serie_id}}">{{ result.nameSerie }}</a></p>
+	    		<img class="" src="{{result.banner}}" alt="">
+
+	    		<div class="block-sy">
+			        <p class="real">Realisateur : {{ result.realisateur}}</p>
+			        <p class="synopsis clo-md-5"><p>Synopsis : </p>{{ result.synopsisSerie}}</p>
+			        <!--<button class="follow">suivre</button>-->
+		        </div>
 
 	        </div>
 

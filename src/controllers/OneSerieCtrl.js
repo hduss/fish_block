@@ -34,8 +34,12 @@ class OneSerieCtrl {
 
 
 				res.render('app/oneSerie.html.twig', {result: result});
-			}
-		);
+			})
+
+			.catch((error) => console.log(error));
+
+
+		
 
 	}
 
@@ -57,7 +61,7 @@ class OneSerieCtrl {
 
 					console.log(result.nameSerie);
 					console.log(result.serie_id);
-					console.log(result);
+					console.log(result.banner);
 
 					const id = result.serie_id;
 
@@ -72,6 +76,8 @@ class OneSerieCtrl {
 			
 
 			.catch((error) => console.log(error));
+
+
 	}
 
 
