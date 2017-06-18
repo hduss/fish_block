@@ -33,10 +33,45 @@ class OneSerieCtrl {
 				const result = jsontrans.transform(results);
 
 
-				res.render('oneSerie.twig', {result: result});
+				res.render('app/oneSerie.html.twig', {result: result});
 			}
 		);
 
+	}
+
+	post(req, res) {
+		const search = req.body.search;
+
+		const sqlmoves = new SQLmoves();
+
+		const userSearch = sqlmoves.findSerie(search)
+			.then((results) => {
+
+				console.log(results);
+
+				const jsontrans = new JSONtrans();
+				const result = jsontrans.transform(results);
+
+				if (result) {
+
+
+					console.log(result.nameSerie);
+					console.log(result.serie_id);
+					console.log(result);
+
+					const id = result.serie_id;
+
+					res.redirect(`/series/${id}`);
+
+				}else{
+					res.redirect('/');
+				}
+			})
+			
+					
+			
+
+			.catch((error) => console.log(error));
 	}
 
 

@@ -38,7 +38,6 @@ const connection = mysql.createConnection({
 
 
 
-
 // CONNECT DB FIRST
 connection.connect((err) => {
 
@@ -120,8 +119,14 @@ const populate = new Populate();
 	// en attente pour la liste des episodes
 
 	app.get('/series', SeriesCtrl.get);
+	app.post('/series', SeriesCtrl.post);
 	app.get('/series/:numserie', OneSerieCtrl.get);
-	app.get('serie/:numserie/episode/:numepisode', SeriesCtrl.get);
+	app.post('/series/:numserie', OneSerieCtrl.post);
+	//app.get('serie/:numserie/episode/:numepisode', SeriesCtrl.get);
+
+	app.get('/contact', (req, res) => {
+		res.render('app/contact.twig');
+	});
 
 	app.use(function(err, req, res, next) {
  		 console.error(err.stack);
