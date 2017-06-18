@@ -23,7 +23,7 @@ class UserWallCtrl {
 
 
 				console.log(id);
-				res.render('userWall.twig', {
+				res.render('app/userWall.html.twig', {
 					result: result
 				});
 

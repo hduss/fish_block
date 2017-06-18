@@ -1,9 +1,12 @@
 
 {%block pseudo%}
-<p class="pseudo">{{ result.pseudo}}</p>
-<p class="informations">Infos : <p>{{result.informations}}</p></p>
-<p class="first-name">{{ result.firstName }}</p>
-<p class="last-name">{{ result.lastName}}</p>
+<div class="userWall">
+	<p class="pseudo">{{ result.pseudo}}</p>
+	<p class="informations">Infos : <p>{{result.informations}}</p></p>
+	<p class="first-name">Prénom : {{ result.firstName }}</p>
+	<p class="last-name">Nom : {{ result.lastName}}</p>
+
+</div>
 {%endblock%}
 
 
