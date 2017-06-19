@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const yaml = require('yamljs');
 const config = yaml.load('config/configDb.yml');
 
+
 class LoginCtrl {
 
 	constructor() {
@@ -67,7 +68,14 @@ class LoginCtrl {
 					if (result) {
 						console.log('COMPARE ok');
 						//creer un cookie qui suis l'utilisateur
-						res.redirect('/');
+						req.session.pseudo = req.body.pseudo;
+						const Pseudo = req.session.pseudo;
+						console.log('SESSIOn >>>>>>>> ', req.session.pseudo);
+						console.log('SESSION PSEUDO >>>>',Pseudo);
+						//res.redirect('/');
+
+
+						res.render('app/home.html.twig', {pseudo: Pseudo});
 
 
 

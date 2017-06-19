@@ -66,12 +66,12 @@ class compareLogin{
 	comparePass(userPseudo, inputPassword) {
 		return new Promise((resolve, reject) => {
 
-			// find user by pseudo
+			// find user by pseudo in database
 			this.sqlmoves.findUser(userPseudo)
 
 				.then((results) => {
 
-					// transform results
+					// transform results in JSON
 					const jsontrans = new JSONtrans();
 
 					let result = jsontrans.transform(results);

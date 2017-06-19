@@ -1,33 +1,22 @@
 
 const express = require('express');
 const mysql = require('mysql');
-
 // yamljs, parse, stringify and load functions
 const twig = require ('twig');
 const path = require('path');
-
 // to read input forms
 const yaml = require('yamljs');
-
 // yaml file for database connection
-const config = yaml.load('config/configDb.yml');
- 	
+const config = yaml.load('config/configDb.yml');	
 // to recover input data
 const bodyParser = require('body-parser');
-
-
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
-
 // new instance to use tvDb API
 const TVDB = require('node-tvdb');
 const tvdb = new TVDB(config.default.tvDb.key);
-
 // to populate database withe theTvDb API
 const Populate = require('./services/Populate.js');
-
-
-
 // create the connection with parameters from configDb.yml
 const connection = mysql.createConnection({
 	host     : config.default.database.host,
@@ -35,9 +24,6 @@ const connection = mysql.createConnection({
 	password : config.default.database.password,
 	database : config.default.database.dbname
 });
-
-
-
 // CONNECT DB FIRST
 connection.connect((err) => {
 
@@ -45,45 +31,22 @@ connection.connect((err) => {
    		console.error('error connecting: ' + err.stack);
    		return;
  	}
-
  	console.log('Database ' + config.default.database.dbname + ' Connected !');
-
  	// INIT SERVER AFTER DB
  	const app = express();
-
  	// MIDDLEWARES
 
-/*tvdb.getEpisodesBySeriesId(153021)
-	.then(response => {
-		console.log(response);
-	})
 
-	.catch((error) => console.log(error));
-   */
- /*
-tvdb.getSeriesByName('the walking dead')
-    .then(response => {
-    	console.log(response)})
-    .catch(error => { console.log(error)});*/
-
-const populate = new Populate();
-
-
-
-//populate.insertEpisodes(153021, 2);
- 	
  	// bodyParser to use input submit
 	app.use(bodyParser.json())
 	app.use(bodyParser.urlencoded({ 
 		extended: true 
 	}));
-
  	app.use(session({
 
 		secret:'secret',
 		cookie: { maxAge: 60000 }
 	}));
-
 	// express.static to use static files like css/js client/img
 	app.use(express.static(path.join(__dirname, '../public')));
 
@@ -99,8 +62,6 @@ const populate = new Populate();
 	const oneSerieCtrl = require('./controllers/OneSerieCtrl.js');
 	const menuCtrl = require('./controllers/MenuCtrl.js');
 
-
-
 	// INIT CONTROLLERS
 	const RegistrationCtrl = new registrationCtrl();
 	const LoginCtrl = new loginCtrl();
@@ -109,7 +70,6 @@ const populate = new Populate();
 	const UserCtrl = new userCtrl();
 	const UserWallCtrl = new userWallCtrl();
 	const OneSerieCtrl = new oneSerieCtrl();
-
 
 
  	// ROUTES CREATION
@@ -125,9 +85,6 @@ const populate = new Populate();
 	app.get('/users', UserCtrl.get);
 	app.get('/userWall/:user_id', UserWallCtrl.get);
 
-
-	// en attente pour la liste des episodes
-
 	app.get('/series', SeriesCtrl.get);
 	app.post('/series', SeriesCtrl.post);
 	app.get('/series/:numserie', OneSerieCtrl.get);
@@ -135,24 +92,11 @@ const populate = new Populate();
 	//app.get('/series/:numserie/episodes', EpisodesCtrl.get);
 	//app.get('serie/:numserie/episode/:numepisode', SeriesCtrl.get);
 
-	app.get('/contact', (req, res) => {res.render('app/contact.html.twig');
-	});
-
-	app.get('/mentions', (req, res) => {res.render('app/mentions.html.twig');
-	});
-
-	app.get('/cgu', (req, res) => {res.render('app/cgu.html.twig');
-	});
-
-	app.get('/faq', (req, res) => {res.render('app/faq.html.twig');
-	});
-
-	/*app.use(function(err, req, res, next) {
- 		 console.error(err.stack);
-  		res.status(404).send('Something broke!');
-	});
-*/
-
+	// routes without controllers -> just display 
+	app.get('/contact', (req, res) => {res.render('app/contact.html.twig');});
+	app.get('/mentions', (req, res) => {res.render('app/mentions.html.twig');});
+	app.get('/cgu', (req, res) => {res.render('app/cgu.html.twig');});
+	app.get('/faq', (req, res) => {res.render('app/faq.html.twig');});
 
 	const port = process.env.PORT || config.default.server.port; 
 	 
@@ -164,3 +108,24 @@ const populate = new Populate();
  
 
 
+/*------------------------------- GET series and POPULATE DB-----------------
+tvdb.getEpisodesBySeriesId(153021)
+	.then(response => {
+		console.log(response);
+	})
+
+	.catch((error) => console.log(error));
+   
+ 
+tvdb.getSeriesByName('the walking dead')
+    .then(response => {
+    	console.log(response)})
+    .catch(error => { console.log(error)});
+
+const populate = new Populate();
+
+
+
+populate.insertEpisodes(153021, 2);
+
+--------------------------------------------------------------------------------*/

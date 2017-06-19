@@ -10,7 +10,14 @@
 
 		</head>
 		<body>
-			{% include 'layout/headerLayout.twig' %}
+
+			{% if pseudo %}
+				{% include 'layout/headerConnectLayout.twig'%}
+			{% else %}
+				{% include 'layout/headerLayout.twig' %}
+		
+			{% endif %}
+
 			{% include 'layout/carouselLayout.twig' %}
 			{% include 'layout/menuLayout.twig' %}
 			{% include 'layout/acceuilImgLayout.twig' %}
